@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+  th:replace="~{layout/base :: layout(~{::title}, ~{::link}, ~{::body/content()})}"
+>
+<head>
+  <title>商品新規作成</title>
+  <link />
+</head>
+<body>
+  <div class="pcoded-content">
+    <!-- Page-header start -->
+    <div class="page-header">
+      <div class="page-block">
+        <div class="row align-items-center">
+          <div class="col-md-12">
+            <div class="page-header-title">
+              <h2 class="mt-2">商品新規作成</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Page-header end -->
+    <div class="pcoded-inner-content">
+      <!-- Main-body start -->
+      <div class="main-body">
+        <div class="page-wrapper">
+          <!-- Page body start -->
+          <div class="page-body">
+            <!-- message -->
+            <div th:replace="~{fragments :: message}"></div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <!-- Basic Form Inputs card start -->
+                <div class="card">
+                  <div class="card-header">
+                      <h4>新規作成</h4>
+                  </div>
+                  <div class="card-block">
+                    <form th:action="@{/products/save}" method="post" th:object="${product}" enctype="multipart/form-data">
+                      <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">商品名</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" th:field="*{name}">
+                          <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Error</span>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">商品画像</label>
+                        <div class="col-sm-10">
+                          <input type="file" class="form-control fill" name="file">
+                          <span class="text-danger" th:if="${file_error_message != null}" th:text="${file_error_message}">Error</span>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">商品説明</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" th:field="*{description}">
+                          <span class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Error</span>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">価格</label>
+                        <div class="col-sm-10">
+                          <input type="number" class="form-control" th:field="*{price}">
+                          <span class="text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Error</span>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">ブランド名</label>
+                        <div class="col-sm-10">
+                          <select th:field="*{brand}" class="form-control fill" required>
+                            <th:block th:each="brand : ${listBrands}">
+                              <option th:value="${brand.id}" th:text="${brand.name}"></option>
+                            </th:block>
+                          </select>
+                          <span class="text-danger" th:if="${#fields.hasErrors('brand')}" th:errors="*{brand}">Error</span>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">カテゴリー名</label>
+                        <div class="col-sm-10">
+                          <select th:field="*{category}" class="form-control" required>
+                            <th:block th:each="cat : ${listCategories}">
+                              <option th:value="${cat.id}" th:text="${cat.name}"></option>
+                            </th:block>
+                          </select>
+                          <span class="text-danger" th:if="${#fields.hasErrors('category')}" th:errors="*{category}">Error</span>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">長辺</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" th:field="*{length}">
+                          <span class="text-danger" th:if="${#fields.hasErrors('length')}" th:errors="*{length}">Error</span>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">短辺</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" th:field="*{width}">
+                          <span class="text-danger" th:if="${#fields.hasErrors('width')}" th:errors="*{width}">Error</span>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">高さ</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" th:field="*{height}">
+                          <span class="text-danger" th:if="${#fields.hasErrors('height')}" th:errors="*{height}">Error</span>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">重量</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" th:field="*{weight}">
+                          <span class="text-danger" th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}">Error</span>
+                        </div>
+                      </div>
+                      <div class="btn-toolbar">
+                        <div class="ml-2">
+                          <a class="btn btn-secondary waves-effect waves-light" th:href="@{/home}">戻る</a>
+                        </div>
+                        <div class="ml-auto mr-2">
+                          <button class="btn btn-primary waves-effect waves-light">登録</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <!-- Basic Form Inputs card end -->
+              </div>
+            </div>
+          </div>
+          <!-- Page body end -->
+        </div>
+      </div>
+      <!-- Main-body end -->
+    </div>
+  </div>
+</body>
+</html>

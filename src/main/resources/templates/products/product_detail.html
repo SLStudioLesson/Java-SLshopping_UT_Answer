@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+  th:replace="~{layout/base :: layout(~{::title}, ~{::link}, ~{::body/content()})}"
+>
+<head>
+  <title>商品詳細</title>
+  <link />
+</head>
+<body>
+  <div class="pcoded-content">
+    <!-- Page-header start -->
+    <div class="page-header">
+      <div class="page-block">
+        <div class="row align-items-center">
+          <div class="col-md-12">
+            <div class="page-header-title">
+              <h2 class="mt-2">商品詳細</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Page-header end -->
+    <div class="pcoded-inner-content">
+      <!-- Main-body start -->
+      <div class="main-body">
+        <div class="page-wrapper">
+          <!-- Page body start -->
+          <div class="page-body">
+            <div class="row">
+              <div class="col-sm-12">
+                <!-- Basic Form Inputs card start -->
+                <div class="card">
+                  <div class="card-header">
+                      <h4>詳細</h4>
+                  </div>
+                  <div class="card-block">
+                    <th:block th:object="${product}">
+                      <div class="form-group row">
+                        <div class="col-sm-3">
+                          <label for="id">ID</label>
+                          <input type="text" class="form-control" th:field="*{id}" readonly>
+                        </div>
+                        <div class="col-sm-9">
+                          <label for="name">商品名</label>
+                          <input type="text" class="form-control" th:field="*{name}" readonly>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-sm-12">
+                          <div>
+                            <label>商品画像</label>
+                          </div>
+                          <div>
+                            <img alt="商品画像" th:src="@{*{image}}">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-sm-6">
+                          <label for="brand">ブランド名</label>
+                          <input type="text" class="form-control" id="brand" th:field="*{brand.name}" readonly>
+                        </div>
+                        <div class="col-sm-6">
+                          <label for="category">カテゴリー名</label>
+                          <input type="text" class="form-control" id="category" th:field="*{category.name}" readonly>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-sm-12">
+                          <label for="description">商品説明</label>
+                          <input type="text" class="form-control" th:field="*{description}" readonly>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-sm-3">
+                          <label for="length">長辺</label>
+                          <input type="text" class="form-control" th:field="*{length}" readonly>
+                        </div>
+                        <div class="col-sm-3">
+                          <label for="width">短辺</label>
+                          <input type="text" class="form-control" th:field="*{width}" readonly>
+                        </div>
+                        <div class="col-sm-3">
+                          <label for="height">高さ</label>
+                          <input type="text" class="form-control" th:field="*{height}" readonly>
+                        </div>
+                        <div class="col-sm-3">
+                          <label for="weight">重量</label>
+                          <input type="text" class="form-control" th:field="*{weight}" readonly>
+                        </div>
+                      </div>
+                      <div class="btn-toolbar">
+                        <div class="ml-2">
+                          <a class="btn btn-secondary waves-effect waves-light" th:href="@{/products}">戻る</a>
+                        </div>
+                      </div>
+                    </th:block>
+                  </div>
+                </div>
+                <!-- Basic Form Inputs card end -->
+              </div>
+            </div>
+          </div>
+          <!-- Page body end -->
+        </div>
+      </div>
+      <!-- Main-body end -->
+    </div>
+  </div>
+</body>
+</html>
