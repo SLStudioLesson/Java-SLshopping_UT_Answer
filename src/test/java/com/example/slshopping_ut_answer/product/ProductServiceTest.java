@@ -195,7 +195,7 @@ class ProductServiceTest {
      * productRepositoryのfindByIdメソッドはnullを格納したOptionalを返却するようスタブ化すること<br>
      *
      * 【結果】
-     * 例外が発生しないこと
+     * 例外が発生すること
      */
     @Test
     void testGet_throwsException() {

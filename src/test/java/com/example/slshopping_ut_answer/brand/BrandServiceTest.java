@@ -50,141 +50,10 @@ class BrandServiceTest {
         // スタブの設定
         doReturn(expected).when(this.mockBrandRepository).findAll();
 
-        /* Lesson02 タスク -初級編- 課題1 */
         // 検証処理
         assertThat(target.listAll()).isEqualTo(expected);
     }
 
-    /**
-     * 【概要】
-     * ブランド名の重複チェック<br>
-     *
-     * 【条件】
-     * brandRepositoryのfindByNameメソッドはnullを返すようスタブ化すること<br>
-     *
-     * 【結果】
-     * trueを返すこと
-     */
-    @Test
-    void testCheckUnique_noDuplication() {
-        // ブランド名が重複していないブランド情報を作成
-        Brand newBrand = new Brand(1L, "brandA");
-
-        // スタブの設定
-        doReturn(null).when(this.mockBrandRepository).findByName(anyString());
-
-        /* Lesson02 タスク -初級編- 課題2 */
-        // 検証処理
-        assertThat(target.checkUnique(newBrand)).isTrue();
-    }
-
-    /**
-     * 【概要】
-     * ブランド名の重複チェック<br>
-     *
-     * 【条件】
-     * brandRepositoryのfindByNameメソッドはBrandのインスタンスを返却するようスタブ化すること<br>
-     *
-     * 【結果】
-     * falseを返すこと
-     */
-    @Test
-    void testCheckUnique_duplicate() {
-        // 準備 ブランド名が重複するブランド情報を作成
-        Brand newBrand = new Brand(1L, "brandA");
-
-        // スタブに設定するデータを作成
-        Brand mockBrand = new Brand(1L, "brandA");
-
-        //スタブの設定
-        doReturn(mockBrand).when(this.mockBrandRepository).findByName(newBrand.getName());
-
-        // 検証
-        assertThat(target.checkUnique(newBrand)).isFalse();
-    }
-
-    /**
-     * 【概要】
-     * ブランド情報の取得<br>
-     *
-     * 【条件】
-     * brandRepositoryのfindByIdメソッドはBrandのインスタンスを格納したOptionalを返却するようスタブ化すること<br>
-     *
-     * 【結果】
-     * 例外が発生しないこと
-     */
-    @Test
-    void testGet_noThrowsException() {
-        // 準備 テストデータに存在するID
-        Long id = 1L;
-
-        // スタブに設定するデータを作成
-        Optional<Brand> brand = Optional.of(new Brand());
-
-        //スタブの設定
-        doReturn(brand).when(this.mockBrandRepository).findById(id);
-
-        // 検証
-        assertThatCode(() -> {
-            target.get(id);
-        }).doesNotThrowAnyException();
-    }
-
-    /**
-     * 【概要】
-     * ブランド情報の取得<br>
-     *
-     * 【条件】
-     * brandRepositoryのfindByIdメソッドはnullを格納したOptionalを返却するようスタブ化すること<br>
-     *
-     * 【結果】
-     * 例外が発生しないこと
-     */
-    @Test
-    void testGet_throwsException() {
-        // 準備 テストデータに存在しないID
-        Long id = 1000L;
-
-        // スタブに設定するデータを作成
-        Optional<Brand> brand = Optional.ofNullable(null);
-
-        //スタブの設定
-        doReturn(brand).when(this.mockBrandRepository).findById(id);
-
-        /* Lesson02 タスク -初級編- 課題3 */
-        // 検証処理
-        assertThatThrownBy(() -> {
-            target.get(id);
-        })
-        .isInstanceOf(NotFoundException.class);
-    }
-
-    /**
-     * 【概要】
-     * ブランド情報の取得処理の検証<br>
-     *
-     * 【条件】
-     * brandRepositoryのfindByIdはBrandのインスタンスを格納したOptionalを返却するようスタブ化すること<br>
-     *
-     * 【結果】
-     * Brandを返却すること
-     */
-    @Test
-    void testGet() throws Exception {
-        // 準備 任意のID
-        Long id = 1L;
-
-        // スタブに設定するデータを作成
-        Optional<Brand> brand = Optional.of(new Brand());
-
-        // スタブの設定
-        doReturn(brand).when(this.mockBrandRepository).findById(id);
-
-        // 検証
-        assertThat(target.get(id)).isEqualTo(brand.get());
-    }
-
-    /* ここからタスク中級編 */
     /**
      * 【概要】
      * ブランドを検索<br>
@@ -254,5 +123,132 @@ class BrandServiceTest {
         doReturn(expected).when(this.mockBrandRepository).search(keyword);
 
         assertThat(target.listAll(keyword)).isEqualTo(expected);
+    }
+
+    /**
+     * 【概要】
+     * ブランド名の重複チェック<br>
+     *
+     * 【条件】
+     * brandRepositoryのfindByNameメソッドはnullを返すようスタブ化すること<br>
+     *
+     * 【結果】
+     * trueを返すこと
+     */
+    @Test
+    void testCheckUnique_noDuplication() {
+        // ブランド名が重複していないブランド情報を作成
+        Brand newBrand = new Brand(1L, "brandA");
+
+        // スタブの設定
+        doReturn(null).when(this.mockBrandRepository).findByName(anyString());
+
+        // 検証処理
+        assertThat(target.checkUnique(newBrand)).isTrue();
+    }
+
+    /**
+     * 【概要】
+     * ブランド名の重複チェック<br>
+     *
+     * 【条件】
+     * brandRepositoryのfindByNameメソッドはBrandのインスタンスを返却するようスタブ化すること<br>
+     *
+     * 【結果】
+     * falseを返すこと
+     */
+    @Test
+    void testCheckUnique_duplicate() {
+        // 準備 ブランド名が重複するブランド情報を作成
+        Brand newBrand = new Brand(1L, "brandA");
+
+        // スタブに設定するデータを作成
+        Brand mockBrand = new Brand(1L, "brandA");
+
+        //スタブの設定
+        doReturn(mockBrand).when(this.mockBrandRepository).findByName(newBrand.getName());
+
+        // 検証
+        assertThat(target.checkUnique(newBrand)).isFalse();
+    }
+
+    /**
+     * 【概要】
+     * ブランド情報の取得<br>
+     *
+     * 【条件】
+     * brandRepositoryのfindByIdメソッドはBrandのインスタンスを格納したOptionalを返却するようスタブ化すること<br>
+     *
+     * 【結果】
+     * 例外が発生しないこと
+     */
+    @Test
+    void testGet_noThrowsException() {
+        // 準備 テストデータに存在するID
+        Long id = 1L;
+
+        // スタブに設定するデータを作成
+        Optional<Brand> brand = Optional.of(new Brand());
+
+        //スタブの設定
+        doReturn(brand).when(this.mockBrandRepository).findById(id);
+
+        // 検証
+        assertThatCode(() -> {
+            target.get(id);
+        }).doesNotThrowAnyException();
+    }
+
+    /**
+     * 【概要】
+     * ブランド情報の取得<br>
+     *
+     * 【条件】
+     * brandRepositoryのfindByIdメソッドはnullを格納したOptionalを返却するようスタブ化すること<br>
+     *
+     * 【結果】
+     * 例外が発生すること
+     */
+    @Test
+    void testGet_throwsException() {
+        // 準備 テストデータに存在しないID
+        Long id = 1000L;
+
+        // スタブに設定するデータを作成
+        Optional<Brand> brand = Optional.ofNullable(null);
+
+        //スタブの設定
+        doReturn(brand).when(this.mockBrandRepository).findById(id);
+
+        // 検証処理
+        assertThatThrownBy(() -> {
+            target.get(id);
+        })
+        .isInstanceOf(NotFoundException.class);
+    }
+
+    /**
+     * 【概要】
+     * ブランド情報の取得処理の検証<br>
+     *
+     * 【条件】
+     * brandRepositoryのfindByIdはBrandのインスタンスを格納したOptionalを返却するようスタブ化すること<br>
+     *
+     * 【結果】
+     * Brandを返却すること
+     */
+    @Test
+    void testGet() throws Exception {
+        // 準備 任意のID
+        Long id = 1L;
+
+        // スタブに設定するデータを作成
+        Optional<Brand> brand = Optional.of(new Brand());
+
+        // スタブの設定
+        doReturn(brand).when(this.mockBrandRepository).findById(id);
+
+        // 検証
+        assertThat(target.get(id)).isEqualTo(brand.get());
     }
 }
