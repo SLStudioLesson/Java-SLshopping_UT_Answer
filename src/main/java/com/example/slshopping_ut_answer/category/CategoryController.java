@@ -33,7 +33,7 @@ public class CategoryController {
      * @return カテゴリー一覧画面
      */
     @GetMapping
-    public String listCategories(@RequestParam(required = false) String keyword, Model model) {
+    public String listCategories(@RequestParam(name = "keyword", required = false) String keyword, Model model) {
         // 全カテゴリー情報の取得
         List<Category> listCategories = categoryService.listAll(keyword);
         model.addAttribute("listCategories", listCategories);

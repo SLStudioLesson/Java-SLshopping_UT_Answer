@@ -33,7 +33,7 @@ public class BrandController {
      * @return ブランド一覧画面
      */
     @GetMapping
-    public String listBrands(@RequestParam(required = false) String keyword, Model model) {
+    public String listBrands(@RequestParam(name = "keyword", required = false) String keyword, Model model) {
         // 全ブランド情報の取得
         List<Brand> listBrands = brandService.listAll(keyword);
         model.addAttribute("listBrands", listBrands);

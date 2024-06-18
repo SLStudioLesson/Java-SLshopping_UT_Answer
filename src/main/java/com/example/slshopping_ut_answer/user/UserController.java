@@ -47,7 +47,7 @@ public class UserController {
      * @return 管理者一覧画面
      */
     @GetMapping
-    public String listUsers(@RequestParam(required = false) String keyword, Model model) {
+    public String listUsers(@RequestParam(name = "keyword", required = false) String keyword, Model model) {
         // 全管理者情報の取得
         List<User> listUsers = userService.listAll(keyword);
         model.addAttribute("listUsers", listUsers);

@@ -71,7 +71,7 @@ public class ProductController {
      * @return 商品一覧画面
      */
     @GetMapping
-    public String listProducts(@RequestParam(required = false) String keyword, Model model) {
+    public String listProducts(@RequestParam(name = "keyword", required = false) String keyword, Model model) {
         // 全商品情報の取得
         List<Product> listProducts = productService.listAll(keyword);
         model.addAttribute("listProducts", listProducts);
