@@ -81,7 +81,7 @@ class UserControllerTest {
      * 【結果】
      * ステータスが200であること<br>
      * users/user_form.htmlを表示すること<br>
-     * キー名productにProductのインスタンスが格納されていること
+     * キー名userにUserのインスタンスが格納されていること
      */
     @Test
     void testNewUser() throws Exception {
