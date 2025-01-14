@@ -152,7 +152,7 @@ class CategoryServiceTest {
      */
     @Test
     void testCheckUnique_duplicate() {
-        Category newCategory = new Category(1L, "categoryA");
+        Category newCategory = new Category(0L, "categoryA");
 
         Category mockCategory = new Category(1L, "categoryA");
 
