@@ -160,7 +160,7 @@ class BrandServiceTest {
     @Test
     void testCheckUnique_duplicate() {
         // 準備 ブランド名が重複するブランド情報を作成
-        Brand newBrand = new Brand(1L, "brandA");
+        Brand newBrand = new Brand(0L, "brandA");
 
         // スタブに設定するデータを作成
         Brand mockBrand = new Brand(1L, "brandA");
